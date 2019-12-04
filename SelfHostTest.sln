@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfHostTest.API", "SelfHostTest.API\SelfHostTest.API.csproj", "{9AB122C0-E7CC-4877-8A90-3603B6ED0BAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfHostTest.AcceptanceTests", "SelfHostTest.AcceptanceTests\SelfHostTest.AcceptanceTests.csproj", "{17675138-0F0F-4EC8-A8E9-EE49F629A06F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AB122C0-E7CC-4877-8A90-3603B6ED0BAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AB122C0-E7CC-4877-8A90-3603B6ED0BAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AB122C0-E7CC-4877-8A90-3603B6ED0BAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AB122C0-E7CC-4877-8A90-3603B6ED0BAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17675138-0F0F-4EC8-A8E9-EE49F629A06F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17675138-0F0F-4EC8-A8E9-EE49F629A06F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17675138-0F0F-4EC8-A8E9-EE49F629A06F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17675138-0F0F-4EC8-A8E9-EE49F629A06F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2539FAB2-4C81-427F-972D-0D2EEB7063B7}
+	EndGlobalSection
+EndGlobal
