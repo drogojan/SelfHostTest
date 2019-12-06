@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SelfHostTest.API.Domain;
 
 namespace SelfHostTest.API.Controllers
 {
@@ -12,6 +13,13 @@ namespace SelfHostTest.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly IUserService userService;
+
+        public UsersController(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
         [HttpPost]
         public ActionResult Post(UserInputModel user)
         {

@@ -6,25 +6,28 @@ using System.Threading.Tasks;
 using AspNetCore.Http.Extensions;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using SelfHostTest.API;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace SelfHostTest.AcceptanceTests
 {
-    public class RegistrationTests : IClassFixture<WebApplicationFactory<SelfHostTest.API.Startup>>
+    public class RegistrationTests : IClassFixture<TestFixture>
     {
-        private readonly WebApplicationFactory<SelfHostTest.API.Startup> factory;
+        private readonly TestFixture fixture;
 
-        public RegistrationTests(WebApplicationFactory<Startup> factory)
+        public RegistrationTests(TestFixture fixture, ITestOutputHelper output)
         {
-            this.factory = factory;
+            this.fixture = fixture;
+            fixture.Output = output;
         }
 
         [Fact]
         public async Task Register_a_new_user()
         {
-            var client = factory.CreateClient();
+            var client = fixture.CreateClient();
             var user = new
             {
                 username = "alice",
