@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SelfHostTest.API.Domain;
+using SelfHostTest.API.Domain.Users;
 
 namespace SelfHostTest.API.Controllers
 {
@@ -23,25 +24,14 @@ namespace SelfHostTest.API.Controllers
         [HttpPost]
         public ActionResult Post(UserInputModel user)
         {
-            UserViewModel createdUser = new UserViewModel();
-            createdUser.id = 1;
-            createdUser.username = user.username;
-            createdUser.about = user.about;
-
-            return Created($"/users/{createdUser.id}", createdUser);
+//            UserViewModel createdUser = new UserViewModel();
+//            createdUser.id = 1;
+//            createdUser.username = user.username;
+//            createdUser.about = user.about;
+//
+//            return Created($"/users/{createdUser.id}", createdUser);
+            userService.CreateUser(user);
+            return new EmptyResult();
         }
-    }
-
-    public class UserViewModel
-    {
-        public int id { get; set; }
-        public string username { get; set; }
-        public string about { get; set; }
-    }
-
-    public class UserInputModel
-    {
-        public string username { get; set; }
-        public string about { get; set; }
     }
 }

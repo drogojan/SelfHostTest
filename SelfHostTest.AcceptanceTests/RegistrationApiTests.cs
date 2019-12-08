@@ -14,11 +14,11 @@ using Xunit.Abstractions;
 
 namespace SelfHostTest.AcceptanceTests
 {
-    public class RegistrationTests : IClassFixture<TestFixture>
+    public class RegistrationApiTests : IClassFixture<TestFixture>
     {
         private readonly TestFixture fixture;
 
-        public RegistrationTests(TestFixture fixture, ITestOutputHelper output)
+        public RegistrationApiTests(TestFixture fixture, ITestOutputHelper output)
         {
             this.fixture = fixture;
             fixture.Output = output;
