@@ -4,6 +4,6 @@ namespace SelfHostTest.API.Domain.Users
 {
     public interface IUserService
     {
-        UserViewModel CreateUser(UserInputModel userInputModel);
+        UserApiModel CreateUser(UserInputModel userInputModel);
     }
 }

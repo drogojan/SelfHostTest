@@ -22,16 +22,19 @@ namespace SelfHostTest.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(UserInputModel user)
+        public ActionResult<UserApiModel> Post(UserInputModel user)
         {
-//            UserViewModel createdUser = new UserViewModel();
-//            createdUser.id = 1;
-//            createdUser.username = user.username;
-//            createdUser.about = user.about;
-//
-//            return Created($"/users/{createdUser.id}", createdUser);
-            userService.CreateUser(user);
-            return new EmptyResult();
+            try
+            {
+                UserApiModel createdUser = userService.CreateUser(user);
+
+                return Created("", createdUser);
+            }
+            catch (UsernameAlreadyInUseException e)
+            {
+                return new BadRequestObjectResult(new { message = "Username already in use"});
+            }
+
         }
     }
 }
