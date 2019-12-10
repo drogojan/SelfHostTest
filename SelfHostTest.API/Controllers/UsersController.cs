@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SelfHostTest.API.ApiErrors;
 using SelfHostTest.API.Domain;
 using SelfHostTest.API.Domain.Users;
 
@@ -30,9 +31,9 @@ namespace SelfHostTest.API.Controllers
 
                 return Created("", createdUser);
             }
-            catch (UsernameAlreadyInUseException e)
+            catch (UsernameAlreadyInUseException)
             {
-                return new BadRequestObjectResult(new { message = "Username already in use"});
+                return new BadRequestObjectResult(new ApiError { Message = "Username already in use"});
             }
 
         }

@@ -26,6 +26,7 @@ namespace SelfHostTest.API
         {
             services.AddControllers();
 
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
         }
 

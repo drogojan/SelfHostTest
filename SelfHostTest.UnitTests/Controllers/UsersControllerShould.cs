@@ -1,13 +1,12 @@
-using System.Net.Http;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using SelfHostTest.API.ApiErrors;
 using SelfHostTest.API.Controllers;
-using SelfHostTest.API.Domain;
 using SelfHostTest.API.Domain.Users;
 using Xunit;
 
-namespace SelfHostTest.UnitTests
+namespace SelfHostTest.UnitTests.Controllers
 {
     public class UsersControllerShould
     {
@@ -37,7 +36,7 @@ namespace SelfHostTest.UnitTests
             UsersController usersController = new UsersController(userServiceMock.Object);
 
             UserApiModel createdUser =
-                (usersController.Post(REGISTRATION_DATA).Result as CreatedResult).Value.As<UserApiModel>();
+                ((CreatedResult) usersController.Post(REGISTRATION_DATA).Result).Value.As<UserApiModel>();
 
             createdUser.Username.Should().Be(USER.Username);
             createdUser.About.Should().Be(USER.About);
@@ -53,7 +52,8 @@ namespace SelfHostTest.UnitTests
             UsersController usersController = new UsersController(userServiceMock.Object);
 
             BadRequestObjectResult badRequestResult = usersController.Post(REGISTRATION_DATA).Result as BadRequestObjectResult;
-            badRequestResult.Value.Should().Be("Username already in use");
+            ApiError apiError = new ApiError { Message = "Username already in use" };
+            badRequestResult.Value.As<ApiError>().Message.Should().Be("Username already in use");
         }
     }
 }
