@@ -43,8 +43,8 @@ namespace SelfHostTest.AcceptanceTests
             var actual = await response.Content.ReadAsJsonAsync<JObject>();
 
             actual.GetValue("id").ToObject<int>().Should().BePositive();
-            actual.GetValue("Username").ToObject<string>().Should().Be("alice");
-            actual.GetValue("About").ToObject<string>().Should().Be("About Alice");
+            actual.GetValue("username").ToObject<string>().Should().Be("alice");
+            actual.GetValue("about").ToObject<string>().Should().Be("About Alice");
         }
     }
 }
