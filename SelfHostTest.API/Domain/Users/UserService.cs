@@ -18,7 +18,7 @@ namespace SelfHostTest.API.Domain.Users
 
             User user = CreateUserFrom(userInputModel);
 
-            User createdUser = userRepository.Create(user);
+            User createdUser = userRepository.Add(user);
 
             return CreateUserApiModelFrom(createdUser);
         }

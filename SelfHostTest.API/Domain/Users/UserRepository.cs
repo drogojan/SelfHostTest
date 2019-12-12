@@ -1,15 +1,28 @@
-﻿namespace SelfHostTest.API.Domain.Users
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore.Internal;
+using SelfHostTest.API.DbContexts;
+
+namespace SelfHostTest.API.Domain.Users
 {
-    class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
-        public User Create(User user)
+        private readonly ApplicationDbContext dbContext;
+
+        public UserRepository(ApplicationDbContext dbContext)
         {
-            throw new System.NotImplementedException();
+            this.dbContext = dbContext;
+        }
+
+        public User Add(User user)
+        {
+            dbContext.Users.Add(user);
+            dbContext.SaveChanges();
+            return user;
         }
 
         public bool IsUsernameTaken(string username)
         {
-            throw new System.NotImplementedException();
+            return dbContext.Users.Any(u => u.Username == username);
         }
     }
 }

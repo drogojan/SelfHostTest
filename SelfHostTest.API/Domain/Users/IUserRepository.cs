@@ -2,7 +2,7 @@
 {
     public interface IUserRepository
     {
-        User Create(User user);
+        User Add(User user);
         bool IsUsernameTaken(string username);
     }
 }

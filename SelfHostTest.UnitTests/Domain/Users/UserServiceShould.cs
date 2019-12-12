@@ -21,7 +21,7 @@ namespace SelfHostTest.UnitTests.Domain.Users
             User user = new User { Username = USERNAME, Password = PASSWORD, About = ABOUT };
             User createdUser = new User { Id = 1, Username = USERNAME, Password = PASSWORD, About = ABOUT };
             Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>();
-            userRepositoryMock.Setup(m => m.Create(
+            userRepositoryMock.Setup(m => m.Add(
                 It.Is<User>(u =>
                         u.Username == user.Username
                         && u.Password == user.Password
@@ -31,7 +31,7 @@ namespace SelfHostTest.UnitTests.Domain.Users
             UserApiModel userApiModel = sut.CreateUser(REGISTRATION_DATA);
 
             userRepositoryMock.Verify(
-                m => m.Create(
+                m => m.Add(
                         It.Is<User>(u =>
                                                     u.Username == user.Username
                                                     && u.Password == user.Password
