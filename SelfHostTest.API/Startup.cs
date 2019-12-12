@@ -33,8 +33,8 @@ namespace SelfHostTest.API
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(
-                    @"Server=(localdb)\mssqllocaldb;Database=OutsideInTddDB;Trusted_Connection=True;");
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                // TODO - EnsureCreated and Migrate
             });
         }
 

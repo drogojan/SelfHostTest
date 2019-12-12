@@ -17,10 +17,13 @@ namespace SelfHostTest.AcceptanceTests
     public class RegistrationApiTests : IClassFixture<TestFixture>
     {
         private readonly TestFixture fixture;
+        //private readonly ITestOutputHelper testOutputHelper;
 
         public RegistrationApiTests(TestFixture fixture, ITestOutputHelper output)
         {
             this.fixture = fixture;
+            //this.testOutputHelper = testOutputHelper;
+
             fixture.Output = output;
         }
 
@@ -39,7 +42,7 @@ namespace SelfHostTest.AcceptanceTests
 
             var actual = await response.Content.ReadAsJsonAsync<JObject>();
 
-            actual.GetValue("Id").ToObject<int>().Should().BePositive();
+            actual.GetValue("id").ToObject<int>().Should().BePositive();
             actual.GetValue("Username").ToObject<string>().Should().Be("alice");
             actual.GetValue("About").ToObject<string>().Should().Be("About Alice");
         }

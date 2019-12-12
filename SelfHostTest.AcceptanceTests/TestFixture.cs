@@ -1,10 +1,16 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.IO;
+using System.Linq;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SelfHostTest.API;
+using SelfHostTest.API.DbContexts;
 using Xunit.Abstractions;
 
 namespace SelfHostTest.AcceptanceTests
@@ -26,13 +32,32 @@ namespace SelfHostTest.AcceptanceTests
             return builder;
         }
 
-        //protected override void ConfigureWebHost(IWebHostBuilder builder)
-        //{
-        //    // Don't run IHostedServices when running as a test
-        //    builder.ConfigureTestServices((services) =>
-        //    {
-        //        services.RemoveAll(typeof(IHostedService));
-        //    });
-        //}
+
+        protected override void ConfigureWebHost(IWebHostBuilder builder)
+        {
+            var projectDir = Directory.GetCurrentDirectory();
+            var configPath = Path.Combine(projectDir, "appsettings.json");
+
+            builder.ConfigureAppConfiguration(configurationBuilder => { configurationBuilder.AddJsonFile(configPath); });
+
+            builder.ConfigureServices(services =>
+            {
+                var buildServiceProvider = services.BuildServiceProvider();
+
+                using (var scope = buildServiceProvider.CreateScope())
+                {
+                    var scopeServiceProvider = scope.ServiceProvider;
+                    var dbContext = scopeServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    dbContext.Database.EnsureDeleted();
+                    dbContext.Database.Migrate();
+                }
+            });
+
+            // Don't run IHostedServices when running as a test
+            //builder.ConfigureTestServices((services) =>
+            //{
+            //    services.RemoveAll(typeof(IHostedService));
+            //});
+        }
     }
 }

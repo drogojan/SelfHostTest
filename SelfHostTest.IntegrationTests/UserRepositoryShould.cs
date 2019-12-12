@@ -15,7 +15,7 @@ namespace SelfHostTest.IntegrationTests
         {
             DbContextOptionsBuilder<ApplicationDbContext> dbContextOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             dbContextOptionsBuilder.UseSqlServer(
-                @"Server=(localdb)\mssqllocaldb;Database=OutsideInTddDB;Trusted_Connection=True;");
+                @"Server=(localdb)\mssqllocaldb;Database=OutsideInTdd-Test-DB;Trusted_Connection=True;");
             DbContextOptions<ApplicationDbContext> options = dbContextOptionsBuilder.Options;
 
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
