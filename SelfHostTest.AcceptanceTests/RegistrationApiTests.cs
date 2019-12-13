@@ -17,13 +17,10 @@ namespace SelfHostTest.AcceptanceTests
     public class RegistrationApiTests : IClassFixture<TestFixture>
     {
         private readonly TestFixture fixture;
-        //private readonly ITestOutputHelper testOutputHelper;
 
         public RegistrationApiTests(TestFixture fixture, ITestOutputHelper output)
         {
             this.fixture = fixture;
-            //this.testOutputHelper = testOutputHelper;
-
             fixture.Output = output;
         }
 

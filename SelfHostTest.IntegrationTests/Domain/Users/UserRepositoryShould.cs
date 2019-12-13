@@ -1,12 +1,10 @@
-using System;
-using System.Net.Mime;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using SelfHostTest.API.DbContexts;
 using SelfHostTest.API.Domain.Users;
 using Xunit;
 
-namespace SelfHostTest.IntegrationTests
+namespace SelfHostTest.IntegrationTests.Domain.Users
 {
     public class UserRepositoryShould
     {
@@ -24,10 +22,12 @@ namespace SelfHostTest.IntegrationTests
 
             UserRepository sut = new UserRepository(dbContext);
             User ALICE = new User { Username = "Alice", Password = "Alice123", About = "About Alice" };
+            User CHARLIE = new User { Username = "Charley", Password = "charl13", About = "About Charlie" };
 
             sut.Add(ALICE);
 
             sut.IsUsernameTaken(ALICE.Username).Should().BeTrue();
+            sut.IsUsernameTaken(CHARLIE.Username).Should().BeFalse();
         }
     }
 }
