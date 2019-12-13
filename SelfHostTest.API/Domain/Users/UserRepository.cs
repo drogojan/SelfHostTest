@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Microsoft.EntityFrameworkCore.Internal;
 using SelfHostTest.API.DbContexts;
 
 namespace SelfHostTest.API.Domain.Users

@@ -21,9 +21,9 @@ namespace SelfHostTest.UnitTests.Controllers
         {
             Mock<IUserService> userServiceMock = new Mock<IUserService>();
 
-            UsersController usersController = new UsersController(userServiceMock.Object);
+            UsersController sut = new UsersController(userServiceMock.Object);
 
-            usersController.Post(REGISTRATION_DATA);
+            sut.Post(REGISTRATION_DATA);
 
             userServiceMock.Verify(m => m.CreateUser(REGISTRATION_DATA));
         }
@@ -34,10 +34,10 @@ namespace SelfHostTest.UnitTests.Controllers
             Mock<IUserService> userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(m => m.CreateUser(REGISTRATION_DATA)).Returns(USER);
 
-            UsersController usersController = new UsersController(userServiceMock.Object);
+            UsersController sut = new UsersController(userServiceMock.Object);
 
             UserApiModel createdUser =
-                ((CreatedResult) usersController.Post(REGISTRATION_DATA).Result).Value.As<UserApiModel>();
+                ((CreatedResult) sut.Post(REGISTRATION_DATA).Result).Value.As<UserApiModel>();
 
             createdUser.Username.Should().Be(USER.Username);
             createdUser.About.Should().Be(USER.About);
@@ -50,9 +50,9 @@ namespace SelfHostTest.UnitTests.Controllers
             Mock<IUserService> userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(m => m.CreateUser(REGISTRATION_DATA)).Throws<UsernameAlreadyInUseException>();
 
-            UsersController usersController = new UsersController(userServiceMock.Object);
+            UsersController sut = new UsersController(userServiceMock.Object);
 
-            BadRequestObjectResult badRequestResult = usersController.Post(REGISTRATION_DATA).Result as BadRequestObjectResult;
+            BadRequestObjectResult badRequestResult = sut.Post(REGISTRATION_DATA).Result as BadRequestObjectResult;
             ApiError apiError = new ApiError { Message = "Username already in use" };
             badRequestResult.Value.As<ApiError>().Message.Should().Be("Username already in use");
         }

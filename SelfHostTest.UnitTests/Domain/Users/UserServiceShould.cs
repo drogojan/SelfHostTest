@@ -1,7 +1,9 @@
 ﻿using System;
+using AutoMapper;
 using FluentAssertions;
 using Moq;
 using SelfHostTest.API.Domain.Users;
+using SelfHostTest.API.MappingConfigurations;
 using SelfHostTest.API.Models;
 using Xunit;
 
@@ -14,6 +16,17 @@ namespace SelfHostTest.UnitTests.Domain.Users
         private static readonly string ABOUT = "About Alice";
         private static readonly UserInputModel REGISTRATION_DATA =
             new UserInputModel { Username = USERNAME, Password = PASSWORD, About = ABOUT };
+
+        private readonly IMapper mapper;
+
+        public UserServiceShould()
+        {
+            var mapperConfiguration = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile<UserProfile>();
+            });
+            mapper = mapperConfiguration.CreateMapper();
+        }
 
         [Fact]
         public void Create_a_user()
@@ -28,7 +41,7 @@ namespace SelfHostTest.UnitTests.Domain.Users
                         && u.Password == user.Password
                         && u.About == user.About))).Returns(createdUser);
 
-            UserService sut = new UserService(userRepositoryMock.Object);
+            UserService sut = new UserService(userRepositoryMock.Object, mapper);
             UserApiModel userApiModel = sut.CreateUser(REGISTRATION_DATA);
 
             userRepositoryMock.Verify(
@@ -48,7 +61,7 @@ namespace SelfHostTest.UnitTests.Domain.Users
             Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>();
             userRepositoryMock.Setup(m => m.IsUsernameTaken(USERNAME)).Returns(true);
 
-            UserService sut = new UserService(userRepositoryMock.Object);
+            UserService sut = new UserService(userRepositoryMock.Object, mapper);
             Action action = () => sut.CreateUser(REGISTRATION_DATA);
 
             action.Should().Throw<UsernameAlreadyInUseException>();
