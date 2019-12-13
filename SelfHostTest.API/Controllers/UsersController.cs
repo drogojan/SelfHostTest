@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using SelfHostTest.API.ApiErrors;
 using SelfHostTest.API.Domain;
 using SelfHostTest.API.Domain.Users;
+using SelfHostTest.API.Models;
 
 namespace SelfHostTest.API.Controllers
 {

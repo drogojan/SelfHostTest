@@ -1,4 +1,4 @@
-﻿namespace SelfHostTest.API.Domain.Users
+﻿namespace SelfHostTest.API.Models
 {
     public class UserApiModel
     {

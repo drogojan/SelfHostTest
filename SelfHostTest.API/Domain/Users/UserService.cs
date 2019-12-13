@@ -1,4 +1,5 @@
 using System;
+using SelfHostTest.API.Models;
 
 namespace SelfHostTest.API.Domain.Users
 {
@@ -13,7 +14,7 @@ namespace SelfHostTest.API.Domain.Users
 
         public UserApiModel CreateUser(UserInputModel userInputModel)
         {
-            if(userRepository.IsUsernameTaken(userInputModel.Username))
+            if (userRepository.IsUsernameTaken(userInputModel.Username))
                 throw new UsernameAlreadyInUseException();
 
             User user = CreateUserFrom(userInputModel);
@@ -25,13 +26,12 @@ namespace SelfHostTest.API.Domain.Users
 
         private static UserApiModel CreateUserApiModelFrom(User createdUser)
         {
-            return new UserApiModel {Id = createdUser.Id, Username = createdUser.Username, About = createdUser.About};
+            return new UserApiModel { Id = createdUser.Id, Username = createdUser.Username, About = createdUser.About };
         }
 
         private static User CreateUserFrom(UserInputModel userInputModel)
         {
-            return new User
-                {Username = userInputModel.Username, Password = userInputModel.Password, About = userInputModel.About};
+            return new User { Username = userInputModel.Username, Password = userInputModel.Password, About = userInputModel.About };
         }
     }
 }

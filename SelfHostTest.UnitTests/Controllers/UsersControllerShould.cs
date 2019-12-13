@@ -4,6 +4,7 @@ using Moq;
 using SelfHostTest.API.ApiErrors;
 using SelfHostTest.API.Controllers;
 using SelfHostTest.API.Domain.Users;
+using SelfHostTest.API.Models;
 using Xunit;
 
 namespace SelfHostTest.UnitTests.Controllers

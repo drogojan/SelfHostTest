@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Moq;
 using SelfHostTest.API.Domain.Users;
+using SelfHostTest.API.Models;
 using Xunit;
 
 namespace SelfHostTest.UnitTests.Domain.Users
