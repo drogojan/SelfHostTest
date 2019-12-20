@@ -1,3 +1,4 @@
+using System.Linq;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using SelfHostTest.API.DbContexts;
@@ -12,6 +13,7 @@ namespace SelfHostTest.IntegrationTests.Domain.Users
         public void Inform_when_a_username_is_already_taken()
         {
             DbContextOptionsBuilder<ApplicationDbContext> dbContextOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+//            dbContextOptionsBuilder.UseInMemoryDatabase("InMemoryDbForTesting");
             dbContextOptionsBuilder.UseSqlServer(
                 @"Server=(localdb)\mssqllocaldb;Database=OutsideInTdd-Test-DB;Trusted_Connection=True;");
             DbContextOptions<ApplicationDbContext> options = dbContextOptionsBuilder.Options;
@@ -19,6 +21,7 @@ namespace SelfHostTest.IntegrationTests.Domain.Users
             ApplicationDbContext dbContext = new ApplicationDbContext(options);
             dbContext.Database.EnsureDeleted();
             dbContext.Database.Migrate();
+//            dbContext.Database.EnsureCreated();
 
             UserRepository sut = new UserRepository(dbContext);
             User ALICE = new User { Username = "Alice", Password = "Alice123", About = "About Alice" };
