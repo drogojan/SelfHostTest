@@ -35,21 +35,18 @@ namespace SelfHostTest.UnitTests.Domain.Users
             User user = new User { Username = USERNAME, Password = PASSWORD, About = ABOUT };
             User createdUser = new User { Id = 1, Username = USERNAME, Password = PASSWORD, About = ABOUT };
             Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>();
-            userRepositoryMock.Setup(m => m.Add(
-                It.Is<User>(u =>
-                        u.Username == user.Username
-                        && u.Password == user.Password
-                        && u.About == user.About))).Returns(createdUser);
+            userRepositoryMock.Setup(m => m.Add(user)
+//                It.Is<User>(
+//                    u =>
+//                        u.Username == user.Username
+//                        && u.Password == user.Password
+//                        && u.About == user.About))
+            ).Returns(createdUser);
 
             UserService sut = new UserService(userRepositoryMock.Object, mapper);
             UserApiModel userApiModel = sut.CreateUser(REGISTRATION_DATA);
 
-            userRepositoryMock.Verify(
-                m => m.Add(
-                        It.Is<User>(u =>
-                                                    u.Username == user.Username
-                                                    && u.Password == user.Password
-                                                    && u.About == user.About)));
+            userRepositoryMock.Verify(m => m.Add(user));
             userApiModel.Id.Should().Be(createdUser.Id);
             userApiModel.Username.Should().Be(createdUser.Username);
             userApiModel.About.Should().Be(createdUser.About);

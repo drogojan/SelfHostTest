@@ -5,7 +5,7 @@ using SelfHostTest.API.Models;
 
 namespace SelfHostTest.API.Controllers
 {
-    [Route("[controller]")]
+    [Route("users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
